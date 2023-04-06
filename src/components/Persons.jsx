@@ -1,4 +1,4 @@
-import { useGetPersonsQuery } from '../api/api.js';
+import { useGetPersonsQuery } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
 

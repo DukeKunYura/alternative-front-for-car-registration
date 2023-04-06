@@ -30,7 +30,7 @@ export const api = createApi({
         // Создание автомобиля
         createCar: builder.mutation({
             query: (car) => ({
-                url: `/cars`,
+                url: `car`,
                 method: 'POST',
                 body: car,
             }),
@@ -38,7 +38,7 @@ export const api = createApi({
 
         // Получение списка автомобилей
         getCars: builder.query({
-            query: () => '/cars',
+            query: () => 'cars',
         }),
 
         // Получение автомобиля по id

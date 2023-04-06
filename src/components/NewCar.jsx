@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useCreateCarMutation } from '../api/api';
 
 export default function NewCar() {
-    const [name, setName] = useState('');
-    const [personId, setPersonId] = useState('');
+    const [number, setNumber] = useState('');
+    const [brand, setBrand] = useState('');
     const [createCar, { isLoading }] = useCreateCarMutation();
 
     const handleSubmit = async (e) => {
@@ -12,28 +12,28 @@ export default function NewCar() {
 
         // Вызываем метод API для создания автомобиля
         await createCar({
-            name,
-            personId,
+            number,
+            brand,
         });
 
         // Очищаем форму
-        setName('');
-        setPersonId('');
+        setNumber('');
+        setBrand('');
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
-                placeholder="Название автомобиля"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="Номер автомобиля"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
             />
             <input
-                type="number"
-                placeholder="ID персоны"
-                value={personId}
-                onChange={(e) => setPersonId(e.target.value)}
+                type="text"
+                placeholder="Бренд автомобиля"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
             />
             <button type="submit" disabled={isLoading}>
                 Добавить автомобиль
