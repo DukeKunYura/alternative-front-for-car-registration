@@ -23,7 +23,7 @@ export const api = createApi({
         // Получение персоны по id
         getPersonById: builder.query({
             query: (id) => ({
-                url: `person${id}`
+                url: `person?id=${id}`
             })
         }),
 
@@ -47,6 +47,22 @@ export const api = createApi({
                 url: `car${id}`
             })
         }),
+
+        // Получение автомобиля по номеру
+        getCarByNumber: builder.query({
+            query: (number) => ({
+                url: `car_number${number}`
+            })
+        }),
+
+        // Регистрация автомобиля на владельца
+        registration: builder.mutation({
+            query: (pairId) => ({
+                url: `registration_car`,
+                method: 'POST',
+                body: pairId
+            })
+        })
     }),
 });
 
@@ -56,5 +72,7 @@ export const {
     useCreateCarMutation,
     useGetCarsQuery,
     useGetPersonByIdQuery,
-    useGetCarByIdQuery
+    useGetCarByIdQuery,
+    useGetCarByNumberQuery,
+    useRegistrationMutation
 } = api;
