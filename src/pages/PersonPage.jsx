@@ -62,7 +62,7 @@ export default function PersonPage() {
                                     <button
                                         className="button is-link is-light"
                                         type="button"
-                                        onClick={() => { dispatch(setIsActiveCarAdder(false)) }}>
+                                        onClick={() => { dispatch(setIsActiveCarRegistration(false)) }}>
                                         Cancel
                                     </button>
                                 </div>
