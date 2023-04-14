@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from '../api/api';
-import { masterReducer } from '../slices/masterSlice'
+import masterReducer from '../slices/masterSlice'
 
 export const store = configureStore({
     reducer: {
