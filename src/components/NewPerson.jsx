@@ -1,7 +1,7 @@
 import React from 'react';
-import { useCreatePersonMutation } from '../api/api.js';
+import { useCreatePersonMutation } from '../api/api';
 import { useDispatch } from 'react-redux';
-import { setIsActivePersonAdder } from '../slices/masterSlice.js';
+import { setIsActivePersonAdder } from '../slices/masterSlice';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 

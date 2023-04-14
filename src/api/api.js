@@ -27,6 +27,20 @@ export const api = createApi({
             })
         }),
 
+        // Получение персоны c автомобилями по id
+        getPersonWithCarsById: builder.query({
+            query: (id) => ({
+                url: `person_with_cars?id=${id}`
+            })
+        }),
+
+        // Получение персоны по номеру паспорта
+        getPersonByNumber: builder.query({
+            query: (number) => ({
+                url: `person_number?number=${number}`
+            })
+        }),
+
         // Создание автомобиля
         createCar: builder.mutation({
             query: (car) => ({
@@ -44,14 +58,21 @@ export const api = createApi({
         // Получение автомобиля по id
         getCarById: builder.query({
             query: (id) => ({
-                url: `car${id}`
+                url: `car?id=${id}`
+            })
+        }),
+
+        // Получение автомобиля c персонами по id
+        getCarWithPersonsById: builder.query({
+            query: (id) => ({
+                url: `car_with_persons?id=${id}`
             })
         }),
 
         // Получение автомобиля по номеру
         getCarByNumber: builder.query({
             query: (number) => ({
-                url: `car_number${number}`
+                url: `car_number?number=${number}`
             })
         }),
 
@@ -69,10 +90,13 @@ export const api = createApi({
 export const {
     useCreatePersonMutation,
     useGetPersonsQuery,
+    useGetPersonByIdQuery,
+    useGetPersonWithCarsByIdQuery,
+    useGetPersonByNumberQuery,
     useCreateCarMutation,
     useGetCarsQuery,
-    useGetPersonByIdQuery,
     useGetCarByIdQuery,
+    useGetCarWithPersonsByIdQuery,
     useGetCarByNumberQuery,
     useRegistrationMutation
 } = api;

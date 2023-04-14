@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsActiveCarAdder } from '../slices/masterSlice.js';
+import { setIsActiveCarAdder } from '../slices/masterSlice';
 import NewCar from '../components/NewCar';
 import Cars from '../components/Cars';
 

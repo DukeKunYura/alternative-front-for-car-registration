@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsActivePersonAdder } from '../slices/masterSlice.js';
+import { setIsActivePersonAdder } from '../slices/masterSlice';
 import NewPerson from '../components/NewPerson';
 import Persons from '../components/Persons';
 

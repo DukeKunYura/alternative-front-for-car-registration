@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCreateCarMutation } from '../api/api';
 import { useDispatch } from 'react-redux';
-import { setIsActiveCarAdder } from '../slices/masterSlice.js';
+import { setIsActiveCarAdder } from '../slices/masterSlice';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -29,7 +29,7 @@ export default function NewCar() {
         <Formik
             validationSchema={formValidationSchema}
             initialValues={{ number: "", brand: "", model: "", color: "" }}
-            onSubmit={(values, { setSubmitting }) => { handleAdder(values); setSubmitting(false); }}>
+            onSubmit={(values, { setSubmitting }) => { handleAddCar(values); setSubmitting(false); }}>
             {(props) => (
                 <form className="box" onSubmit={props.handleSubmit}>
                     <div className="field">
