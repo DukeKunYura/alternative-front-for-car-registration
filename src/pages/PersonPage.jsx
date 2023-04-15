@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsActiveCarRegistration } from '../slices/masterSlice';
-import { useGetPersonByIdQuery, useRegistrationMutation } from '../api/api';
+import { useGetPersonWithCarsByIdQuery, useRegistrationMutation } from '../api/api';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,11 +13,13 @@ export default function PersonPage() {
 
     const state = useSelector((state) => state.master);
 
-    const { data = [], isSuccess } = useGetPersonByIdQuery(id.substring(1));
+    const { data = [], isSuccess } = useGetPersonWithCarsByIdQuery(id.substring(1));
     const [registration, { isLoading }] = useRegistrationMutation();
 
     const handleAddCar = async (values) => {
-        await registration(values).unwrap();
+        let car = await fetch(`http://localhost:8080/car_number?number=${values.number}`).then((res) => res.json());
+        let pairId = { "personId": id.substring(1), "carId": car.id };
+        await registration(pairId).unwrap();
 
         // navigate("/");
         dispatch(setIsActiveCarRegistration(false));
@@ -31,6 +33,9 @@ export default function PersonPage() {
     return (
         <div>
             <h2>Person {id}</h2>
+            {data.cars && data.cars.map(car =>
+                <div>{car.number}</div>
+            )}
             {data.surname}
             <button onClick={() => { dispatch(setIsActiveCarRegistration(true)) }}>Добавить авто</button>
             {state.isActiveCarRegistration &&
