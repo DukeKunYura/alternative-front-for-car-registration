@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setActiveLink } from '../slices/masterSlice';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsActiveCarRegistration } from '../slices/masterSlice';
@@ -25,6 +26,10 @@ export default function PersonPage() {
         dispatch(setIsActiveCarRegistration(false));
 
     }
+
+    useEffect(() => {
+        dispatch(setActiveLink("persons"))
+    }, [])
 
     const formValidationSchema = Yup.object().shape({
         number: Yup.string().required().max(9)

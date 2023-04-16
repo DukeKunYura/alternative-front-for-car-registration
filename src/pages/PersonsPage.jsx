@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setActiveLink } from '../slices/masterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsActivePersonAdder } from '../slices/masterSlice';
 import NewPerson from '../components/NewPerson';
@@ -10,6 +11,10 @@ export default function PersonsPage() {
     const state = useSelector((state) => state.master);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setActiveLink("persons"))
+    }, [])
 
     return (
         <>

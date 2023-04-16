@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setActiveLink } from '../slices/masterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsActiveCarAdder } from '../slices/masterSlice';
 import NewCar from '../components/NewCar';
@@ -10,6 +11,10 @@ export default function CarsPage() {
     const state = useSelector((state) => state.master);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setActiveLink("cars"))
+    }, [])
 
     return (
         <>
