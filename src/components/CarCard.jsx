@@ -9,9 +9,9 @@ export default function CarCard(props) {
 
     return (
         <div>
-            <h4 className="subtitle is-5">{car.brand + " " + car.model + " " + car.color}</h4>
+            <h4 className="subtitle is-5">{car.brand + " " + car.model}</h4>
             <p>
-                {"passport number: " + car.number}
+                {"number: " + car.number + " color: " + car.color}
             </p>
         </div>
     )

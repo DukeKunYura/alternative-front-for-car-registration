@@ -19,7 +19,7 @@ export default function CarPage() {
 
     const [isEditingCar, setIsEditingCar] = useState(false);
 
-    const { data = [], isSuccess } = useGetCarWithPersonsByIdQuery(id.substring(1));
+    const { data = [], isLoading, isSuccess } = useGetCarWithPersonsByIdQuery(id.substring(1));
 
     useEffect(() => {
         dispatch(setActiveLink("cars"));
