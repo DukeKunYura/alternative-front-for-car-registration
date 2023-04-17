@@ -27,14 +27,14 @@ export default function PersonPage() {
         let car = await fetch(`http://localhost:8080/car_number?number=${values.number}`).then((res) => res.json());
         let pairId = { "personId": id.substring(1), "carId": car.id };
         await registration(pairId).unwrap();
-
-        // navigate("/");
         dispatch(setIsActiveCarRegistration(false));
 
     }
 
     useEffect(() => {
-        dispatch(setActiveLink("persons"))
+        dispatch(setActiveLink("persons"));
+        dispatch(setIsActiveCarRegistration(false));
+        setIsEditingPerson(false);
     }, [])
 
     const formValidationSchema = Yup.object().shape({
@@ -103,16 +103,16 @@ export default function PersonPage() {
                                 </div>
                                 <br />
                                 <footer className="card-footer">
-                                    {!state.isActiveCarAdder &&
+                                    {!state.isActiveCarRegistration &&
                                         <a href="#1" onClick={() => { dispatch(setIsActiveCarRegistration(true)) }}
-                                            className="card-footer-item">Add car</a>}
-                                    {state.isActiveCarAdder &&
+                                            className="card-footer-item">Registration car</a>}
+                                    {state.isActiveCarRegistration &&
                                         <a href="#" onClick={() => { dispatch(setIsActiveCarRegistration(false)) }}
-                                            className="card-footer-item">Cancel adding</a>}
+                                            className="card-footer-item">Cancel registration</a>}
                                     <a href="#" className="card-footer-item"
                                         onClick={() => { setIsEditingPerson(true) }}>Edit person</a>
                                     <a href="#" className="card-footer-item"
-                                        onClick={() => { handleDeletePerson(data.passportNumber) }}>Delete person</a>
+                                        onClick={() => { handleDeletePerson(data.id) }}>Delete person</a>
                                 </footer>
                             </div>}
                         {state.isActiveCarRegistration &&
