@@ -1,8 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-//import { useUpdatePersonMutation } from '../redux/personApi';
+import { useUpdatePersonMutation } from '../api/api';
 
 /**
  * Компонент отвечает за редактирование информации о персоне
@@ -17,32 +16,14 @@ export default function PersonEditor(props) {
         patronymic,
         passportNumber } = props;
 
-    //const [updatePerson, { isError }] = useUpdatePersonMutation();
+    const [updatePerson, { isError }] = useUpdatePersonMutation();
 
-    const navigate = useNavigate();
-
-    const editPerson = async (id, values) => {
-        let response = await fetch(`http://localhost:8080/person?passport=${values.passportNumber}`);
-        if (response.ok) {
-            if (passport === values.passportNumber) {
-                await updatePerson({ passport, ...values }).unwrap();
-                setIsEditingPerson(false);
-            } else {
-                alert("Passport number is already exists")
-            }
-        } else {
-            await updatePerson({ passport, ...values }).unwrap();
-            setIsEditingPerson(false);
-            navigate("/");
-        }
-    }
-
-    const handleEditPerson = (values) => {
-        editPerson(passport, values);
-    }
+    const handleEditPerson = async (values) => {
+        await updatePerson({ id, ...values }).unwrap();
+        setIsEditingPerson(false);
+    };
 
     const formValidationSchema = Yup.object().shape({
-        passportNumber: Yup.string().required().max(10),
         firstName: Yup.string().required(),
         surname: Yup.string().required(),
         patronymic: Yup.string().required(),
@@ -52,7 +33,6 @@ export default function PersonEditor(props) {
         <Formik
             validationSchema={formValidationSchema}
             initialValues={{
-                passportNumber: passportNumber,
                 firstName: firstName,
                 surname: surname,
                 patronymic: patronymic
@@ -109,7 +89,7 @@ export default function PersonEditor(props) {
                             <input
                                 className="input is-static"
                                 type="text"
-                                value={props.values.passportNumber}
+                                value={passportNumber}
                                 readOnly
                             />
                         </div>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-//import { useUpdatePersonMutation } from '../redux/personApi';
+import { useUpdateCarMutation } from '../api/api';
 
 /**
  * Компонент отвечает за редактирование информации о персоне
@@ -17,29 +16,12 @@ export default function CarEditor(props) {
         color,
         number } = props;
 
-    //const [updatePerson, { isError }] = useUpdatePersonMutation();
+    const [updateCar, { isError }] = useUpdateCarMutation();
 
-    const navigate = useNavigate();
-
-    const editCar = async (id, values) => {
-        let response = await fetch(`http://localhost:8080/person?passport=${values.passportNumber}`);
-        if (response.ok) {
-            if (passport === values.passportNumber) {
-                await updatePerson({ passport, ...values }).unwrap();
-                setIsEditingPerson(false);
-            } else {
-                alert("Passport number is already exists")
-            }
-        } else {
-            await updatePerson({ passport, ...values }).unwrap();
-            setIsEditingPerson(false);
-            navigate("/");
-        }
-    }
-
-    const handleEditCar = (values) => {
-        editCar(passport, values);
-    }
+    const handleEditCar = async (values) => {
+        await updateCar({ id, ...values }).unwrap();
+        setIsEditingCar(false);
+    };
 
     const formValidationSchema = Yup.object().shape({
         brand: Yup.string().required(),
