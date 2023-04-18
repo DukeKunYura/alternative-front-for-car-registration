@@ -22,9 +22,10 @@ export default function CarsPage() {
 
     const navigate = useNavigate();
 
-    const handleTransition = () => {
-        if (numberInput !== "") {
-            navigate(`/car/:${numberInput}`);
+    const handleTransition = async () => {
+        let car = await fetch(`http://localhost:8080/car_number?number=${numberInput}`).then((res) => res.json());
+        if (car.id) {
+            navigate(`/car/:${car.id}`);
         }
     }
 

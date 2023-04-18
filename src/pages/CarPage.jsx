@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { setActiveLink } from '../slices/masterSlice';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetCarWithPersonsByIdQuery } from '../api/api';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useGetCarWithPersonsByIdQuery, useDeleteCarMutation } from '../api/api';
 import Loader from '../components/Loader';
 import CarEditor from '../components/CarEditor';
 import PersonInfoString from '../components/PesonInfoString';
@@ -15,20 +13,22 @@ export default function CarPage() {
 
     const dispatch = useDispatch();
 
-    const state = useSelector((state) => state.master);
-
     const [isEditingCar, setIsEditingCar] = useState(false);
 
     const { data = [], isLoading, isSuccess } = useGetCarWithPersonsByIdQuery(id.substring(1));
+    const [deleteCar] = useDeleteCarMutation();
+
+    const navigate = useNavigate();
+
+    const handleDeleteCar = async (id) => {
+        await deleteCar(id).unwrap();
+        navigate("/cars");
+    }
 
     useEffect(() => {
         dispatch(setActiveLink("cars"));
         setIsEditingCar(false);
     }, [])
-
-    const formValidationSchema = Yup.object().shape({
-        number: Yup.string().required().max(9)
-    });
 
     return (
         <>
@@ -135,6 +135,7 @@ export default function CarPage() {
                                 {data.persons && data.persons.map(person => (
                                     <PersonInfoString
                                         key={person.id}
+                                        id={person.id}
                                         passportNumber={person.passportNumber}
                                         surname={person.surname}
                                         firstName={person.firstName}

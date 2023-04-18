@@ -22,9 +22,10 @@ export default function PersonsPage() {
 
     const navigate = useNavigate();
 
-    const handleTransition = () => {
-        if (passportInput !== "") {
-            navigate(`/person/:${passportInput}`);
+    const handleTransition = async () => {
+        let person = await fetch(`http://localhost:8080/person_number?number=${passportInput}`).then((res) => res.json());
+        if (person.id) {
+            navigate(`/person/:${person.id}`);
         }
     }
 

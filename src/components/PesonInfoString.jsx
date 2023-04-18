@@ -1,18 +1,14 @@
 import React from 'react';
-//import { useRemovalCarMutation } from '../redux/personApi';
+import { useNavigate } from 'react-router-dom';
 
 /**
- * Компонент рендерит строку с информацией о владельце и кнопкой удаления
+ * Компонент рендерит строку с информацией о владельце и кнопкой перехода
  */
 export default function PersonInfoString(props) {
 
-    const { passportNumber, firstName, patronymic, surname } = props;
+    const { id, passportNumber, firstName, patronymic, surname } = props;
 
-    //const [removalCar, { isErrorRemoval }] = useRemovalCarMutation();
-
-    // const handleDeleteCar = async (passport, number) => {
-    //     await removalCar({ passport, number }).unwrap();
-    // }
+    const navigate = useNavigate();
 
     return (
         <tr>
@@ -37,8 +33,8 @@ export default function PersonInfoString(props) {
                     <div className="column">
                         <a href="#" className="item"
                             onClick={() => {
-                                // handleDeleteCar(passportNumber, number) 
-                            }}>Delete owner</a>
+                                navigate(`/person/:${id}`)
+                            }}>Person card</a>
                     </div>
                     <div className="block">
                     </div>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { setActiveLink } from '../slices/masterSlice';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsActiveCarRegistration } from '../slices/masterSlice';
-import { useGetPersonWithCarsByIdQuery, useRegistrationMutation } from '../api/api';
+import { useGetPersonWithCarsByIdQuery, useDeletePersonMutation, useRegistrationMutation } from '../api/api';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Loader from '../components/Loader';
@@ -21,14 +21,21 @@ export default function PersonPage() {
     const [isEditingPerson, setIsEditingPerson] = useState(false);
 
     const { data = [], isSuccess } = useGetPersonWithCarsByIdQuery(id.substring(1));
+    const [deletePerson] = useDeletePersonMutation();
     const [registration, { isLoading }] = useRegistrationMutation();
 
-    const handleAddCar = async (values) => {
+    const navigate = useNavigate();
+
+    const handleRegistrationCar = async (values) => {
         let car = await fetch(`http://localhost:8080/car_number?number=${values.number}`).then((res) => res.json());
         let pairId = { "personId": id.substring(1), "carId": car.id };
         await registration(pairId).unwrap();
         dispatch(setIsActiveCarRegistration(false));
+    }
 
+    const handleDeletePerson = async (id) => {
+        await deletePerson(id).unwrap();
+        navigate("/persons");
     }
 
     useEffect(() => {
@@ -119,7 +126,7 @@ export default function PersonPage() {
                             <Formik
                                 validationSchema={formValidationSchema}
                                 initialValues={{ number: "" }}
-                                onSubmit={(values, { setSubmitting }) => { handleAddCar(values); setSubmitting(false); }}>
+                                onSubmit={(values, { setSubmitting }) => { handleRegistrationCar(values); setSubmitting(false); }}>
                                 {(props) => (
                                     <form className="box" onSubmit={props.handleSubmit}>
                                         <div className="field">
@@ -191,6 +198,7 @@ export default function PersonPage() {
                                 {data.cars && data.cars.map(car => (
                                     <CarInfoString
                                         key={car.id}
+                                        id={car.id}
                                         number={car.number}
                                         brand={car.brand}
                                         model={car.model}

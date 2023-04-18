@@ -41,6 +41,14 @@ export const api = createApi({
             })
         }),
 
+        // Удаление персоны
+        deletePerson: builder.mutation({
+            query: (id) => ({
+                url: `delete_person?id=${id}`,
+                method: 'DELETE'
+            }),
+        }),
+
         // Создание автомобиля
         createCar: builder.mutation({
             query: (car) => ({
@@ -76,6 +84,14 @@ export const api = createApi({
             })
         }),
 
+        // Удаление автомобиля
+        deleteCar: builder.mutation({
+            query: (id) => ({
+                url: `delete_car?id=${id}`,
+                method: 'DELETE'
+            }),
+        }),
+
         // Регистрация автомобиля на владельца
         registration: builder.mutation({
             query: (pairId) => ({
@@ -93,10 +109,12 @@ export const {
     useGetPersonByIdQuery,
     useGetPersonWithCarsByIdQuery,
     useGetPersonByNumberQuery,
+    useDeletePersonMutation,
     useCreateCarMutation,
     useGetCarsQuery,
     useGetCarByIdQuery,
     useGetCarWithPersonsByIdQuery,
     useGetCarByNumberQuery,
+    useDeleteCarMutation,
     useRegistrationMutation
 } = api;
