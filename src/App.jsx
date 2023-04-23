@@ -9,6 +9,7 @@ import CarsPage from './pages/CarsPage';
 import PersonPage from './pages/PersonPage';
 import CarPage from './pages/CarPage';
 import Header from './components/Header';
+import FindPage from './pages/FindPage'
 
 import './App.css'
 
@@ -22,6 +23,7 @@ export default function App() {
 
                     <Routes>
                         <Route exact path="/" element={<HomePage />} />
+                        <Route path="/find" element={<FindPage />} />
                         <Route path="/persons" element={<PersonsPage />} />
                         <Route path="/cars" element={<CarsPage />} />
                         <Route path="person/:id" element={<PersonPage />} />

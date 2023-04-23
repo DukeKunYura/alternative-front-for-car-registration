@@ -30,6 +30,8 @@ export default function Header() {
                         <NavLink to="/persons">Persons</NavLink></li>
                     <li className={state.activeLink === "cars" ? "is-active" : ""}>
                         <NavLink to="/cars">Cars</NavLink></li>
+                    <li className={state.activeLink === "find" ? "is-active" : ""}>
+                        <NavLink to="/find">Find</NavLink></li>
                 </ul>
             </nav>
         </>
