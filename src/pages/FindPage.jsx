@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import PersonCard from '../components/PersonCard';
 
-export default function PersonsPage() {
+export default function FindPage() {
 
     const [persons = [], setPersons] = useState();
     const [isActiveInput, setIsActiveInput] = useState(true);
@@ -36,8 +36,7 @@ export default function PersonsPage() {
         if (result) {
             setPersons(result)
         }
-        console.log("find");
-
+        setIsActiveInput(false);
     }
 
     useEffect(() => {
