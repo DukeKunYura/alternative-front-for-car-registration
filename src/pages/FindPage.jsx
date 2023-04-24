@@ -10,6 +10,9 @@ export default function FindPage() {
 
     const [persons = [], setPersons] = useState();
     const [isActiveInput, setIsActiveInput] = useState(true);
+    const [firstName, setFirstName] = useState("");
+    const [surname, setSurname] = useState("");
+    const [patronymic, setPatronymic] = useState("");
 
     const dispatch = useDispatch();
 
@@ -36,6 +39,9 @@ export default function FindPage() {
         if (result) {
             setPersons(result)
         }
+        setFirstName(values.firstName);
+        setSurname(values.surname);
+        setPatronymic(values.patronymic);
         setIsActiveInput(false);
     }
 
@@ -81,9 +87,9 @@ export default function FindPage() {
                     <Formik
                         //validationSchema={formValidationSchema}
                         initialValues={{
-                            firstName: "",
-                            surname: "",
-                            patronymic: ""
+                            firstName,
+                            surname,
+                            patronymic
                         }}
                         onSubmit={(values, { setSubmitting }) => { handleFindPersons(values); setSubmitting(false); }}>
                         {(props) => (
@@ -136,12 +142,20 @@ export default function FindPage() {
                                     <div className="control">
                                         <button className="button is-info" type="submit" disabled={props.isSubmitting}>Find</button>
                                     </div>
-                                    <div className="control">
+                                    {/* <div className="control">
                                         <button
                                             className="button is-link is-light"
                                             type='button'
                                             onClick={() => { setIsActiveInput(false) }}>
                                             Cancel
+                                        </button>
+                                    </div> */}
+                                    <div className="control">
+                                        <button
+                                            className="button is-link is-light"
+                                            type='button'
+                                            onClick={() => { props.resetForm({ values: { firstName: "", surname: "", patronymic: "" } }) }}>
+                                            Clear
                                         </button>
                                     </div>
                                 </div>

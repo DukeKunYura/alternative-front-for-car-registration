@@ -45,7 +45,8 @@ export default function CarsPage() {
     }, [data])
 
     useEffect(() => {
-        dispatch(setActiveLink("cars"))
+        dispatch(setActiveLink("cars"));
+        dispatch(setIsActiveCarAdder(false));
     }, [])
 
     return (

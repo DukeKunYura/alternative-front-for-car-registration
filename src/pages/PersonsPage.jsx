@@ -46,7 +46,8 @@ export default function PersonsPage() {
     }, [data])
 
     useEffect(() => {
-        dispatch(setActiveLink("persons"))
+        dispatch(setActiveLink("persons"));
+        dispatch(setIsActivePersonAdder(false));
     }, [])
 
     return (
