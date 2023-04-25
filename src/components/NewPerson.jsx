@@ -22,12 +22,13 @@ export default function NewPerson() {
         firstName: Yup.string().required(),
         surname: Yup.string().required(),
         patronymic: Yup.string().required(),
+        birthDate: Yup.date().required()
     });
 
     return (
         <Formik
             validationSchema={formValidationSchema}
-            initialValues={{ passportNumber: "", firstName: "", surname: "", patronymic: "", date: "" }}
+            initialValues={{ passportNumber: "", firstName: "", surname: "", patronymic: "", birthDate: "" }}
             onSubmit={(values, { setSubmitting }) => { handleAddPerson(values); setSubmitting(false); }}>
             {(props) => (
                 <form className="box" onSubmit={props.handleSubmit}>
@@ -74,15 +75,15 @@ export default function NewPerson() {
                         </div>
                     </div>
                     <div className="field">
-                        <label className="label">Date of birth </label>
+                        <label className="label">Date of birth</label>
                         <div className="control">
                             <input
                                 className={props.errors.surname && props.touched.surname ? "input is-danger" : "input"}
                                 type="date"
-                                name="date"
+                                name="birthDate"
                                 onChange={props.handleChange}
                                 onBlur={props.handleBlur}
-                                value={props.values.date}
+                                value={props.values.birthDate}
                             />
                         </div>
                     </div>

@@ -14,6 +14,7 @@ export default function PersonEditor(props) {
         firstName,
         surname,
         patronymic,
+        birthDate,
         passportNumber } = props;
 
     const [updatePerson, { isError }] = useUpdatePersonMutation();
@@ -80,6 +81,17 @@ export default function PersonEditor(props) {
                                 onChange={props.handleChange}
                                 onBlur={props.handleBlur}
                                 value={props.values.patronymic}
+                            />
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Date of birth</label>
+                        <div className="control">
+                            <input
+                                className="input is-static"
+                                type="text"
+                                value={birthDate}
+                                readOnly
                             />
                         </div>
                     </div>

@@ -19,6 +19,7 @@ export default function PersonPage() {
     const state = useSelector((state) => state.master);
 
     const [isEditingPerson, setIsEditingPerson] = useState(false);
+    const [age, setAge] = useState(null);
 
     const { data = [], isSuccess } = useGetPersonWithCarsByIdQuery(id.substring(1));
     const [deletePerson] = useDeletePersonMutation();
@@ -39,9 +40,15 @@ export default function PersonPage() {
     }
 
     useEffect(() => {
+        const getAge = async () => {
+            let age = await fetch(`http://localhost:8080/person_age?id=${id.substring(1)}`).then((res) => res.json());
+            return age;
+        };
+        getAge().then((res) => setAge(res));
         dispatch(setActiveLink("persons"));
         dispatch(setIsActiveCarRegistration(false));
         setIsEditingPerson(false);
+        console.log(data);
     }, [])
 
     const formValidationSchema = Yup.object().shape({
@@ -74,6 +81,7 @@ export default function PersonPage() {
                                 firstName={data.firstName}
                                 surname={data.surname}
                                 patronymic={data.patronymic}
+                                birthDate={data.birthDate}
                                 passportNumber={data.passportNumber}
                                 setIsEditingPerson={setIsEditingPerson}
                                 id={id.substring(1)} />}
@@ -99,6 +107,13 @@ export default function PersonPage() {
                                     <div className="control">
                                         <input className="input is-static" type="text"
                                             value={data.patronymic || " "} readOnly />
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <label className="label">Date of birth</label>
+                                    <div className="control">
+                                        <input className="input is-static" type="text"
+                                            value={data.birthDate + " " + age || " "} readOnly />
                                     </div>
                                 </div>
                                 <div className="field">
