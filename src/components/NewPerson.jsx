@@ -12,7 +12,6 @@ export default function NewPerson() {
 
     const handleAddPerson = async (values) => {
         await createPerson(values).unwrap();
-
         // navigate("/");
         dispatch(setIsActivePersonAdder(false));
 
@@ -28,7 +27,7 @@ export default function NewPerson() {
     return (
         <Formik
             validationSchema={formValidationSchema}
-            initialValues={{ passportNumber: "", firstName: "", surname: "", patronymic: "" }}
+            initialValues={{ passportNumber: "", firstName: "", surname: "", patronymic: "", date: "" }}
             onSubmit={(values, { setSubmitting }) => { handleAddPerson(values); setSubmitting(false); }}>
             {(props) => (
                 <form className="box" onSubmit={props.handleSubmit}>
@@ -71,6 +70,19 @@ export default function NewPerson() {
                                 onChange={props.handleChange}
                                 onBlur={props.handleBlur}
                                 value={props.values.surname}
+                            />
+                        </div>
+                    </div>
+                    <div className="field">
+                        <label className="label">Date of birth </label>
+                        <div className="control">
+                            <input
+                                className={props.errors.surname && props.touched.surname ? "input is-danger" : "input"}
+                                type="date"
+                                name="date"
+                                onChange={props.handleChange}
+                                onBlur={props.handleBlur}
+                                value={props.values.date}
                             />
                         </div>
                     </div>
