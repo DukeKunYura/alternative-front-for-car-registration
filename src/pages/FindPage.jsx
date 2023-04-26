@@ -13,7 +13,7 @@ export default function FindPage() {
     const [firstName, setFirstName] = useState("");
     const [surname, setSurname] = useState("");
     const [patronymic, setPatronymic] = useState("");
-    const [age, setAge] = useState("");
+    const [birthDate, setBirthDate] = useState("");
 
     const dispatch = useDispatch();
 
@@ -32,8 +32,8 @@ export default function FindPage() {
         if (values.patronymic) {
             params.push("patronymic=" + values.patronymic);
         }
-        if (values.age) {
-            params.push("age=" + values.age);
+        if (values.birthDate) {
+            params.push("=" + values.birthDate);
         }
         if (params.length > 0) {
             url += "?" + params.join("&");
@@ -95,7 +95,7 @@ export default function FindPage() {
                             firstName,
                             surname,
                             patronymic,
-                            age
+                            birthDate
                         }}
                         onSubmit={(values, { setSubmitting }) => { handleFindPersons(values); setSubmitting(false); }}>
                         {(props) => (
@@ -142,6 +142,34 @@ export default function FindPage() {
                                             value={props.values.patronymic}
                                         />
                                     </div>
+                                </div>birthDate
+                                <div className="field">
+                                    <label className="label">Date of birth</label>
+                                    <div className="control">
+                                        <input
+                                            className={props.errors.age && props.touched.age ? "input is-danger" : "input"}
+                                            placeholder='Input date of birth'
+                                            type="date"
+                                            name="birthDate"
+                                            onChange={props.handleChange}
+                                            onBlur={props.handleBlur}
+                                            value={props.values.birthDate}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <label className="label">Age</label>
+                                    <div className="control">
+                                        <input
+                                            className={props.errors.age && props.touched.age ? "input is-danger" : "input"}
+                                            placeholder='Input age'
+                                            type="number"
+                                            name="age"
+                                            onChange={props.handleChange}
+                                            onBlur={props.handleBlur}
+                                            value={props.values.age}
+                                        />
+                                    </div>
                                 </div>
                                 <div className="field">
                                     <label className="label">Age</label>
@@ -174,7 +202,7 @@ export default function FindPage() {
                                         <button
                                             className="button is-link is-light"
                                             type='button'
-                                            onClick={() => { props.resetForm({ values: { firstName: "", surname: "", patronymic: "", age: "" } }) }}>
+                                            onClick={() => { props.resetForm({ values: { firstName: "", surname: "", patronymic: "", birthDate: "" } }) }}>
                                             Clear
                                         </button>
                                     </div>
