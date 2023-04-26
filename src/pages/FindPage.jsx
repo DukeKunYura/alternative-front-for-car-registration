@@ -114,20 +114,6 @@ export default function FindPage() {
 
                             <form className="box" onSubmit={props.handleSubmit}>
                                 <div className="field">
-                                    <label className="label">Surname</label>
-                                    <div className="control">
-                                        <input
-                                            className={props.errors.surname && props.touched.surname ? "input is-danger" : "input"}
-                                            placeholder='Input surname'
-                                            type="text"
-                                            name="surname"
-                                            onChange={props.handleChange}
-                                            onBlur={props.handleBlur}
-                                            value={props.values.surname}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="field">
                                     <label className="label">First name</label>
                                     <div className="control">
                                         <input
@@ -152,6 +138,20 @@ export default function FindPage() {
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
                                             value={props.values.patronymic}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <label className="label">Surname</label>
+                                    <div className="control">
+                                        <input
+                                            className={props.errors.surname && props.touched.surname ? "input is-danger" : "input"}
+                                            placeholder='Input surname'
+                                            type="text"
+                                            name="surname"
+                                            onChange={props.handleChange}
+                                            onBlur={props.handleBlur}
+                                            value={props.values.surname}
                                         />
                                     </div>
                                 </div>
