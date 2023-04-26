@@ -48,7 +48,6 @@ export default function PersonPage() {
         dispatch(setActiveLink("persons"));
         dispatch(setIsActiveCarRegistration(false));
         setIsEditingPerson(false);
-        console.log(data);
     }, [])
 
     const formValidationSchema = Yup.object().shape({
@@ -113,7 +112,7 @@ export default function PersonPage() {
                                     <label className="label">Date of birth</label>
                                     <div className="control">
                                         <input className="input is-static" type="text"
-                                            value={data.birthDate + " " + age || " "} readOnly />
+                                            value={data.birthDate + " (age: " + age + ")"|| " "} readOnly />
                                     </div>
                                 </div>
                                 <div className="field">
