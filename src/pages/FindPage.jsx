@@ -14,6 +14,8 @@ export default function FindPage() {
     const [surname, setSurname] = useState("");
     const [patronymic, setPatronymic] = useState("");
     const [birthDate, setBirthDate] = useState("");
+    const [minAge, setMinAge] = useState("");
+    const [maxAge, setMaxAge] = useState("");
 
     const dispatch = useDispatch();
 
@@ -33,7 +35,13 @@ export default function FindPage() {
             params.push("patronymic=" + values.patronymic);
         }
         if (values.birthDate) {
-            params.push("=" + values.birthDate);
+            params.push("birth_date=" + values.birthDate);
+        }
+        if (values.minAge) {
+            params.push("min_age=" + values.minAge);
+        }
+        if (values.maxAge) {
+            params.push("max_age=" + values.maxAge);
         }
         if (params.length > 0) {
             url += "?" + params.join("&");
@@ -46,7 +54,9 @@ export default function FindPage() {
         setFirstName(values.firstName);
         setSurname(values.surname);
         setPatronymic(values.patronymic);
-        setAge(values.age)
+        setBirthDate(values.birthDate)
+        setMinAge(values.minAge);
+        setMaxAge(values.maxAge);
         setIsActiveInput(false);
     }
 
@@ -95,7 +105,9 @@ export default function FindPage() {
                             firstName,
                             surname,
                             patronymic,
-                            birthDate
+                            birthDate,
+                            minAge,
+                            maxAge
                         }}
                         onSubmit={(values, { setSubmitting }) => { handleFindPersons(values); setSubmitting(false); }}>
                         {(props) => (
@@ -142,7 +154,7 @@ export default function FindPage() {
                                             value={props.values.patronymic}
                                         />
                                     </div>
-                                </div>birthDate
+                                </div>
                                 <div className="field">
                                     <label className="label">Date of birth</label>
                                     <div className="control">
@@ -159,30 +171,31 @@ export default function FindPage() {
                                 </div>
                                 <div className="field">
                                     <label className="label">Age</label>
-                                    <div className="control">
-                                        <input
-                                            className={props.errors.age && props.touched.age ? "input is-danger" : "input"}
-                                            placeholder='Input age'
-                                            type="number"
-                                            name="age"
-                                            onChange={props.handleChange}
-                                            onBlur={props.handleBlur}
-                                            value={props.values.age}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="field">
-                                    <label className="label">Age</label>
-                                    <div className="control">
-                                        <input
-                                            className={props.errors.age && props.touched.age ? "input is-danger" : "input"}
-                                            placeholder='Input age'
-                                            type="number"
-                                            name="age"
-                                            onChange={props.handleChange}
-                                            onBlur={props.handleBlur}
-                                            value={props.values.age}
-                                        />
+                                    <div className="columns">
+                                        <div className="column">
+                                            <input
+                                                className={props.errors.age && props.touched.age ? "input is-danger" : "input"}
+                                                placeholder='Input min age'
+                                                type="number"
+                                                min={0}
+                                                name="minAge"
+                                                onChange={props.handleChange}
+                                                onBlur={props.handleBlur}
+                                                value={props.values.minAge}
+                                            />
+                                        </div>
+                                        <div className="column">
+                                            <input
+                                                className={props.errors.age && props.touched.age ? "input is-danger" : "input"}
+                                                placeholder='Input max age'
+                                                type="number"
+                                                min={1}
+                                                name="maxAge"
+                                                onChange={props.handleChange}
+                                                onBlur={props.handleBlur}
+                                                value={props.values.maxAge}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 <br />
@@ -202,7 +215,18 @@ export default function FindPage() {
                                         <button
                                             className="button is-link is-light"
                                             type='button'
-                                            onClick={() => { props.resetForm({ values: { firstName: "", surname: "", patronymic: "", birthDate: "" } }) }}>
+                                            onClick={() => {
+                                                props.resetForm({
+                                                    values: {
+                                                        firstName: "",
+                                                        surname: "",
+                                                        patronymic: "",
+                                                        birthDate: "",
+                                                        minAge: "",
+                                                        maxAge: ""
+                                                    }
+                                                })
+                                            }}>
                                             Clear
                                         </button>
                                     </div>
