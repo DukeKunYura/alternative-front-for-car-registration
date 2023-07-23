@@ -23,7 +23,9 @@ export default function PersonsPage() {
     const navigate = useNavigate();
 
     const handleTransition = async () => {
-        let person = await fetch(`http://localhost:8080/person_number?number=${passportInput}`).then((res) => res.json());
+        const host = import.meta.env.VITE_REACT_APP_HOST;
+        const port = import.meta.env.VITE_REACT_APP_PORT;
+        let person = await fetch(`http://${host}:${port}/person_number?number=${passportInput}`).then((res) => res.json());
         if (person.id) {
             navigate(`/person/:${person.id}`);
         }

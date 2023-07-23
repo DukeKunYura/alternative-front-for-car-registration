@@ -22,7 +22,9 @@ export default function FindPage() {
     const navigate = useNavigate();
 
     const handleFindPersons = async (values) => {
-        let url = "http://localhost:8080/persons_with_params";
+        const host = import.meta.env.VITE_REACT_APP_HOST;
+        const port = import.meta.env.VITE_REACT_APP_PORT;
+        let url = `http://${host}:${port}/persons_with_params`;
         let params = [];
 
         if (values.firstName) {

@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const host = import.meta.env.VITE_REACT_APP_HOST;
+const port = import.meta.env.VITE_REACT_APP_PORT;
+
 export const api = createApi({
     reducerPath: 'api',
     tagTypes: ['Persons', 'Person', 'Cars', 'Car'],
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:8080',
+        baseUrl: `http://${host}:${port}`,
     }),
     endpoints: (builder) => ({
         // Создание персоны

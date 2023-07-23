@@ -14,8 +14,10 @@ export default function HomePage() {
         dispatch(setActiveLink("home"));
 
         const handleGetCounts = async () => {
-            let personsCount = await fetch(`http://localhost:8080/persons_count`).then((res) => res.json());
-            let carsCount = await fetch(`http://localhost:8080/cars_count`).then((res) => res.json());
+            const host = import.meta.env.VITE_REACT_APP_HOST;
+            const port = import.meta.env.VITE_REACT_APP_PORT;
+            let personsCount = await fetch(`http://${host}:${port}/persons_count`).then((res) => res.json());
+            let carsCount = await fetch(`http://${host}:${port}/cars_count`).then((res) => res.json());
             return { personsCount, carsCount }
         };
         handleGetCounts().then((res) => setCounts(res));

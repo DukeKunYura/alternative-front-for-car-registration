@@ -28,7 +28,9 @@ export default function PersonPage() {
     const navigate = useNavigate();
 
     const handleRegistrationCar = async (values) => {
-        let car = await fetch(`http://localhost:8080/car_number?number=${values.number}`).then((res) => res.json());
+        const host = import.meta.env.VITE_REACT_APP_HOST;
+        const port = import.meta.env.VITE_REACT_APP_PORT;
+        let car = await fetch(`http://${host}:${port}/car_number?number=${values.number}`).then((res) => res.json());
         let pairId = { "personId": id.substring(1), "carId": car.id };
         await registration(pairId).unwrap();
         dispatch(setIsActiveCarRegistration(false));
@@ -41,7 +43,9 @@ export default function PersonPage() {
 
     useEffect(() => {
         const getAge = async () => {
-            let age = await fetch(`http://localhost:8080/person_age?id=${id.substring(1)}`).then((res) => res.json());
+            const host = import.meta.env.VITE_REACT_APP_HOST;
+            const port = import.meta.env.VITE_REACT_APP_PORT;
+            let age = await fetch(`http://${host}:${port}/person_age?id=${id.substring(1)}`).then((res) => res.json());
             return age;
         };
         getAge().then((res) => setAge(res));

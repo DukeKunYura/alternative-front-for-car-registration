@@ -23,7 +23,9 @@ export default function CarsPage() {
     const navigate = useNavigate();
 
     const handleTransition = async () => {
-        let car = await fetch(`http://localhost:8080/car_number?number=${numberInput}`).then((res) => res.json());
+        const host = import.meta.env.VITE_REACT_APP_HOST;
+        const port = import.meta.env.VITE_REACT_APP_PORT;
+        let car = await fetch(`http://${host}:${port}/car_number?number=${numberInput}`).then((res) => res.json());
         if (car.id) {
             navigate(`/car/:${car.id}`);
         }
